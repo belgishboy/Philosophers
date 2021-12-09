@@ -1,0 +1,39 @@
+ERRORS
+	agrc == 5 || 6 (# of philo, time_to_die, time_to_eat, time_to_sleep, [number of times each philosopher must eat])
+	check with int_check.c if the inputs are vailid ints
+
+figure out the philo struct
+
+TODO
+	ERROR CHECKING
+		- check that all the numbers are valid ints			done(get_dishes)
+		- check that all numbers are greater than thier min	done(get_dishes)
+	INITIALIZING
+		- nphilo											done(get_dishes)
+		- t2d												done(get_dishes)
+		- t2e												done(get_dishes)
+		- t2s												done(get_dishes)
+		- stomach											done(get_dishes)
+		- st (start_time)									done(main)
+		- f (fork list)										done(create_guest_list)
+		- a_p (philo array)									done(create_guest_list)
+			- p_n (philo #)									done(invite_guest)
+			- n_e (times eaten)								done(invite_guest)
+			- al (if alive)									done(invite_guest)
+			- t_e (timestamp of when eaten)					done(main)
+			- t (pointer to the table)						done(invite_guest)
+		- a_t (thread array)								done(create_guest_list)
+	ROUTINE
+		- EATING
+			-
+		- SLEEP
+			-
+		- THINKING
+	Free & Exiting
+
+	
+
+THOUGHTS
+philo cant start eating with 0 ms to live
+if philo has eaten # of time, does he keep eating ? yes
+use pt_detach to "free" everything
