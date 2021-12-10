@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 19:34:49 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/09 20:52:23 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:38:29 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@
 /*
 **Table structure
 ** nphilo == # of philosophers; t2d == time to die;	t2e == time to eat;
-** t2s == time to sleep;	stomach == # times they must eat;
+** t2s == time to sleep;	stomach == # times they must eat; al == alive;
 ** st == start timestamp;	ct == current timestamp;
 ** f == mutex fork array;	a_t == thread array;
 ** a_p == philosphers struct array;
 */
+
+typedef struct s_philo	t_philo;
 
 typedef struct s_table
 {
@@ -44,10 +46,12 @@ typedef struct s_table
 	int				t2e;
 	int				t2s;
 	int				stomach;
+	int				al;
 	struct timeval	st;
 	struct timeval	ct; // has to be local to each routine
 	pthread_mutex_t	*f;
 	pthread_t		*a_t;
+	t_philo			*a_p;
 }	t_table;
 
 /*
@@ -80,7 +84,8 @@ int		ft_argvdigitcheck(char **argv);
 **Functions
 */
 
-int		set_table(int argc, char **argv, t_table *t, t_philo **a_p);
+int		set_table(int argc, char **argv, t_table *t);
 void	*troutine(void *p);
+void	*routine(void *v);
 
 #endif

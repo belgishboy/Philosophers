@@ -19,6 +19,7 @@ all:	$(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(SRC) $(FLAGS) -o $(NAME)
+	$(MAKE) clean
 
 clean:
 	rm -f $(OBJ)

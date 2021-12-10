@@ -2,7 +2,7 @@ ERRORS
 	agrc == 5 || 6 (# of philo, time_to_die, time_to_eat, time_to_sleep, [number of times each philosopher must eat])
 	check with int_check.c if the inputs are vailid ints
 
-figure out the philo struct
+change the variable type of t2* to be suseconds_t and * by 1000 to transfom into micorseconds
 
 TODO
 	ERROR CHECKING

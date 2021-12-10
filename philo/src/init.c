@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 15:00:47 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/09 20:51:30 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/10 18:45:24 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,46 +22,42 @@
 **invite_guest initializes the guest list 
 */
 
-t_philo	*invite_guest(t_table *t)
+int	invite_guest(t_table *t, t_philo *p)
 {
-	t_philo	*new;
-
-	new = malloc(sizeof(t_philo));
-	printf("invite_guest\n");
-	new->p_n = -1;
-	new->n_e = 0;
-	new->al = 1;
-	new->t = t; //pointer??
-	return (new);
+	//printf("invite_guest\n");
+	p->p_n = -1;
+	p->n_e = 0;
+	p->al = 1;
+	p->t = t; //pointer??
+	return (0);
 }
 
 /*
 **Create guest list creates the t_p array
 */
 
-int	create_guest_list(int nphilo, t_table *t, t_philo **a_p)
+int	create_guest_list(int nphilo, t_table *t)
 {
 	pthread_t		*guest_num;
 	pthread_mutex_t	*frk_ls;
-	//t_philo			**guest_list;
+	t_philo			*guest_list;
 	int				x;
 
-	printf("create_guest_list\n");
-	a_p = malloc(nphilo * sizeof(t_philo *));
+	//printf("create_guest_list\n");
+	guest_list = malloc(nphilo * sizeof(t_philo));
 	guest_num = malloc(nphilo * sizeof(pthread_t));
 	frk_ls = malloc(nphilo * sizeof(pthread_mutex_t));
-	if (!frk_ls || !a_p || !guest_num)
+	if (!frk_ls || !guest_list || !guest_num)
 		return (1); // NEED TO FREE
 	x = 0;
 	while (x < nphilo)
 	{
 		if (pthread_mutex_init(&frk_ls[x], NULL))
 			return (1);
-		a_p[x] = invite_guest(t);
+		invite_guest(t, &guest_list[x]);
 		x ++;
 	}
-	//a_p = guest_list;
-	printf("test : %d\n", a_p[0]->n_e);
+	t->a_p = guest_list;
 	t->a_t = guest_num;
 	t->f = frk_ls;
 	return (0);
@@ -73,7 +69,7 @@ int	create_guest_list(int nphilo, t_table *t, t_philo **a_p)
 
 int	get_dishes(int argc, char **argv, t_table *t)// Need to use int_check.c to do some in checking
 {
-	printf("get_dishes\n");
+	//printf("get_dishes\n");
 	if (ft_argvdigitcheck(argv) || ft_argvemptycheck(argv))
 		return (printf("Incorrect imputs\n"));
 	t->nphilo = ft_atoi(argv[1]);
@@ -96,6 +92,7 @@ int	get_dishes(int argc, char **argv, t_table *t)// Need to use int_check.c to d
 	}
 	else
 		t->stomach = -1;
+	t->al = 1;
 	return (0);
 }
 
@@ -103,13 +100,12 @@ int	get_dishes(int argc, char **argv, t_table *t)// Need to use int_check.c to d
 **Set Table initializes the table and all its values
 */
 
-int	set_table(int argc, char **argv, t_table *t, t_philo **a_p)// need a freeing
+int	set_table(int argc, char **argv, t_table *t)// need a freeing
 {
-	printf("set_table\n");
+	//printf("set_table\n");
 	if (get_dishes(argc, argv, t))
 		return (1);
-	if (create_guest_list(t->nphilo, t, a_p))
+	if (create_guest_list(t->nphilo, t))
 		return (2);
-	printf("test : %d\n", a_p[0]->n_e);
 	return (0);
 }
