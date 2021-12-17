@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 19:34:49 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/10 17:38:29 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/17 17:07:14 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,13 @@ typedef struct s_table
 	int				t2e;
 	int				t2s;
 	int				stomach;
+	int				d_e;
 	int				al;
-	struct timeval	st;
-	struct timeval	ct; // has to be local to each routine
+	long long		st;
+	long long		ct; // has to be local to each routine
+	struct timeval	*time;
 	pthread_mutex_t	*f;
+	pthread_mutex_t	prt;
 	pthread_t		*a_t;
 	t_philo			*a_p;
 }	t_table;
@@ -62,30 +65,29 @@ typedef struct s_table
 
 typedef struct s_philo
 {
-	int				p_n;
-	int				n_e;
-	int				al;
-	struct timeval	t_e;
-	t_table			*t; // pointer??
+	int			p_n;
+	int			n_e;
+	int			al;
+	long long	t_e;
+	t_table		*t; // pointer??
 }	t_philo;
 
 /*
 **Utility functions
 */
 
-int		ft_atoi(const char *nptr);
-void	*ft_calloc(size_t nelem, size_t elsize); //NEEDED??
-int		get_time(int s_time); // NEEDED???
-size_t	ft_strlen(const char *s);
-int		ft_argvemptycheck(char **argv);
-int		ft_argvdigitcheck(char **argv);
+int			ft_atoi(const char *nptr);
+long long	get_time(void);
+size_t		ft_strlen(const char *s);
+int			ft_argvemptycheck(char **argv);
+int			ft_argvdigitcheck(char **argv);
+void		prt_status(t_philo *phil, t_table *t, int status);
 
 /*
 **Functions
 */
 
-int		set_table(int argc, char **argv, t_table *t);
-void	*troutine(void *p);
-void	*routine(void *v);
+int			set_table(int argc, char **argv, t_table *t);
+void		*routine(void *v);
 
 #endif

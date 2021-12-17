@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 13:41:33 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/10 18:46:59 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/17 17:26:28 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,38 @@ void	*routine(void *v)
 {
 	t_philo	p;
 	int		n;
-	int x = 0;
 
 	p = *(t_philo *)v;
 	n = (p.p_n + 1) % p.t->nphilo;
-	while (p.al)
+	while (p.al && p.t->al)
 	{
-		//if (!(pthread_mutex_lock(&p.t->f[p.p_n])) && !(pthread_mutex_lock(&p.t->f[n])))
-		//{
-			pthread_mutex_lock(&p.t->f[p.p_n]);
-			//printf("fork %d is locked by philo %d\n", p.p_n, p.p_n);
-			pthread_mutex_lock(&p.t->f[n]);
-			//printf("fork %d is locked by philo %d\n", n, p.p_n);
-			printf("Philo %d is eating\n", p.p_n);
-			usleep(p.t->t2e);
-			pthread_mutex_unlock(&p.t->f[p.p_n]);
-			//printf("fork %d is unlocked by philo %d\n", p.p_n, p.p_n);
-			pthread_mutex_unlock(&p.t->f[n]);
-			//printf("fork %d is unlocked by philo %d\n", n, p.p_n);
-		//}
-		printf("Philo %d is sleeping\n", p.p_n);
-		usleep(p.t->t2s);
-		x ++;
-		if (x == 2)
+		pthread_mutex_lock(&p.t->f[p.p_n]);
+		prt_status(&p, p.t, 1);
+		pthread_mutex_lock(&p.t->f[n]);
+		prt_status(&p, p.t, 1);
+		if (!p.al || get_time() - p.t_e >= p.t->t2d)
+		{
+			p.t->al = 0;
 			p.al = 0;
+			prt_status(&p, p.t, 5);
+			return (NULL);
+		}
+		prt_status(&p, p.t, 2);
+		p.n_e ++;
+		p.t_e = p.t->ct;
+		if (p.n_e == p.t->stomach)
+			p.t->d_e ++;
+		usleep(p.t->t2e);
+		pthread_mutex_unlock(&p.t->f[n]);
+		pthread_mutex_unlock(&p.t->f[p.p_n]);
+		prt_status(&p, p.t, 3);
+		usleep(p.t->t2s);
+		prt_status(&p, p.t, 4);
+		if (p.n_e == 12)
+		{
+			printf("philo %d had eaten 12 times\n", p.p_n);
+			p.t->al = 0;
+		}
 	}
 	p.t->al = 0;
 	return (NULL);
@@ -56,7 +64,6 @@ void	*routine(void *v)
 
 /*
 ** test routine
-*/
 
 void	*troutine(void *v)
 {
@@ -73,3 +80,4 @@ void	*troutine(void *v)
 	}
 	return (NULL);
 }
+*/

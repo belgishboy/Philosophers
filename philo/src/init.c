@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 15:00:47 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/10 18:45:24 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/17 17:14:44 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ int	create_guest_list(int nphilo, t_table *t)
 		invite_guest(t, &guest_list[x]);
 		x ++;
 	}
+	//printf("done guests\n");
+	pthread_mutex_init(&t->prt, NULL);
+	//printf("testing\n");
+	t->d_e = 0;
 	t->a_p = guest_list;
 	t->a_t = guest_num;
 	t->f = frk_ls;
@@ -75,13 +79,13 @@ int	get_dishes(int argc, char **argv, t_table *t)// Need to use int_check.c to d
 	t->nphilo = ft_atoi(argv[1]);
 	if (t->nphilo < 1)
 		return (printf("Not enough Philosopher\n"));
-	t->t2d = ft_atoi(argv[2]);
+	t->t2d = ft_atoi(argv[2]) * 1000;
 	if (t->t2d < 0)
 		return (printf("Time to die is too small\n"));
-	t->t2e = ft_atoi(argv[3]);
+	t->t2e = ft_atoi(argv[3]) * 1000;
 	if (t->t2e < 0)
 		return (printf("Time to eat is too small\n"));
-	t->t2s = ft_atoi(argv[4]);
+	t->t2s = ft_atoi(argv[4]) * 1000;
 	if (t->t2s < 0)
 		return (printf("Time to sleep is too small\n"));
 	if (argc == 6)

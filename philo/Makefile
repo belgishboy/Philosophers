@@ -5,8 +5,8 @@ SRC =	main.c				\
 		utils/ft_strlen.c	\
 		utils/int_check.c	\
 		utils/gettime.c		\
-		utils/ft_calloc.c	\
 		src/init.c			\
+		src/print.c			\
 		src/routine.c		\
 
 CC = gcc
@@ -17,7 +17,7 @@ OBJ = $(SRC:.c=.o)
 
 all:	$(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(SRC)
 	$(CC) $(SRC) $(FLAGS) -o $(NAME)
 	$(MAKE) clean
 
