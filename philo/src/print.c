@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 16:33:32 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/17 17:07:39 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/18 20:38:25 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 /*
 **
 */
-void	prt_status(t_philo *phil, t_table *t, int status)
+void	prt_status(t_philo *phil, t_table *t, int status, long long time)
 {
 	pthread_mutex_lock(&t->prt);
-	printf("%lld %d ", t->ct - t->st, phil->p_n + 1);
+	printf("%lld %d ", time - t->st, phil->p_n + 1);
 	if (status == 1)
 		printf("has taken a fork\n");
 	else if (status == 2)
@@ -29,5 +29,6 @@ void	prt_status(t_philo *phil, t_table *t, int status)
 		printf("is thinking\n");
 	else if (status == 5)
 		printf("died\n");
-	pthread_mutex_unlock(&t->prt);
+	if (status < 5)
+		pthread_mutex_unlock(&t->prt);
 }

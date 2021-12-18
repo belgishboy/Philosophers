@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 19:34:49 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/17 17:07:14 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/18 19:51:45 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ long long	get_time(void);
 size_t		ft_strlen(const char *s);
 int			ft_argvemptycheck(char **argv);
 int			ft_argvdigitcheck(char **argv);
-void		prt_status(t_philo *phil, t_table *t, int status);
+void		prt_status(t_philo *phil, t_table *t, int status, long long time);
 
 /*
 **Functions

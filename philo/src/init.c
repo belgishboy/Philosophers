@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 15:00:47 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/17 17:14:44 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/18 19:58:41 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	get_dishes(int argc, char **argv, t_table *t)// Need to use int_check.c to d
 	t->nphilo = ft_atoi(argv[1]);
 	if (t->nphilo < 1)
 		return (printf("Not enough Philosopher\n"));
-	t->t2d = ft_atoi(argv[2]) * 1000;
+	t->t2d = ft_atoi(argv[2]);
 	if (t->t2d < 0)
 		return (printf("Time to die is too small\n"));
 	t->t2e = ft_atoi(argv[3]) * 1000;

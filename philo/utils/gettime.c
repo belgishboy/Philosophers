@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:45:28 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/17 14:02:45 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/18 20:01:42 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ long long	get_time(void)
 		printf("TIME ERROR\n");
 		return (-1);
 	}
-	time = (g_time.tv_sec) * 10000;
+	time = (g_time.tv_sec) * 1000;
 	time += (g_time.tv_usec) / 1000;
 	return (time);
 }

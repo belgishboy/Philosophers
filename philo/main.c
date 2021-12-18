@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 14:56:01 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/17 19:32:51 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/18 20:17:19 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	if (set_table(argc, argv, &t))
 		return (printf("Error set table\n"));
 	t.st = get_time();
-	t.ct = t.st;	//printf("Done setup\n");
+	t.ct = t.st;
 	x = 0;
 	i = 0;
 	while (i++ < 2)
@@ -50,8 +50,8 @@ int	main(int argc, char **argv)
 			{
 				t.al = 0;
 				t.a_p[x].al = 0;
-				prt_status(&t.a_p[x], &t, 5);
-				break;
+				prt_status(&t.a_p[x], &t, 5, get_time());
+				break ;
 			}
 			x ++;
 		}
@@ -60,7 +60,7 @@ int	main(int argc, char **argv)
 	while (x < t.nphilo)
 	{
 		pthread_detach(t.a_t[x]);
-		printf("Philo %d has been detached @ %lld \n", x, t.ct);
+		//printf("Philo %d has been detached @ %lld \n", x, t.ct);
 		x ++;
 	}
 	return (0);
