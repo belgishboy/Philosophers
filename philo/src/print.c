@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 16:33:32 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/18 20:38:25 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/20 18:23:03 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,12 @@ void	prt_status(t_philo *phil, t_table *t, int status, long long time)
 		printf("died\n");
 	if (status < 5)
 		pthread_mutex_unlock(&t->prt);
+}
+
+void	p_error(char *s)
+{
+	int	i;
+
+	i = 0;
+	
 }
