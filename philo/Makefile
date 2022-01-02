@@ -8,10 +8,11 @@ SRC =	main.c				\
 		src/init.c			\
 		src/print.c			\
 		src/routine.c		\
+		src/actions.c		\
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -fsanitize=thread
 
 OBJ = $(SRC:.c=.o)
 
@@ -20,6 +21,7 @@ all:	$(NAME)
 $(NAME): $(SRC)
 	$(CC) $(SRC) $(FLAGS) -o $(NAME)
 	$(MAKE) clean
+	echo DO NOT RUN VALGRIND
 
 clean:
 	rm -f $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 19:34:49 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/18 19:51:45 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/28 13:11:44 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 ** t2s == time to sleep;	stomach == # times they must eat; al == alive;
 ** st == start timestamp;	ct == current timestamp;
 ** f == mutex fork array;	a_t == thread array;
-** a_p == philosphers struct array;
+** a_p == philosphers struct array;	d_e == done eating;
 */
 
 typedef struct s_philo	t_philo;
@@ -49,7 +49,6 @@ typedef struct s_table
 	int				d_e;
 	int				al;
 	long long		st;
-	long long		ct; // has to be local to each routine
 	struct timeval	*time;
 	pthread_mutex_t	*f;
 	pthread_mutex_t	prt;
@@ -82,6 +81,7 @@ size_t		ft_strlen(const char *s);
 int			ft_argvemptycheck(char **argv);
 int			ft_argvdigitcheck(char **argv);
 void		prt_status(t_philo *phil, t_table *t, int status, long long time);
+int			death(t_philo *p);
 
 /*
 **Functions

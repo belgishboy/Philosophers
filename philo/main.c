@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 14:56:01 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/18 20:17:19 by vheymans         ###   ########.fr       */
+/*   Updated: 2021/12/28 13:38:23 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv)
 	if (set_table(argc, argv, &t))
 		return (printf("Error set table\n"));
 	t.st = get_time();
-	t.ct = t.st;
 	x = 0;
 	i = 0;
 	while (i++ < 2)
@@ -38,29 +37,36 @@ int	main(int argc, char **argv)
 		}
 		x = 1;
 		usleep(250);
-		t.ct = get_time();
 	}
-	while (t.al && t.d_e != t.nphilo)
+	while (t.al)
 	{
-		t.ct = get_time();
-		x = 0;
-		while (x < t.nphilo)
+		// x = 0;
+		// while (x < t.nphilo)
+		// {
+		// 	if (get_time() - t.a_p[x].t_e >= t.t2d)
+		// 	{
+		// 		t.al = 0;
+		// 		t.a_p[x].al = 0;
+		// 		prt_status(&t.a_p[x], &t, 5, get_time());
+		// 		break ;
+		// 	}
+		// 	x ++;
+		// }
+		if (t.d_e >= t.nphilo)
 		{
-			if (t.a_p[x].t_e - t.ct >= t.t2d)
-			{
-				t.al = 0;
-				t.a_p[x].al = 0;
-				prt_status(&t.a_p[x], &t, 5, get_time());
-				break ;
-			}
-			x ++;
+			t.al = 0;
+			printf("done eating\n");
+			break ;
 		}
 	}
 	x = 0;
+	printf("Exiting\n");
+	//pthread_mutex_lock(&t.prt);
 	while (x < t.nphilo)
 	{
-		pthread_detach(t.a_t[x]);
-		//printf("Philo %d has been detached @ %lld \n", x, t.ct);
+		printf("Philo %d had eaten %d times\n", x, t.a_p[x].n_e);
+		pthread_join(t.a_t[x], NULL); // join kills 
+		printf("%lld Philo %d has been joined \n", get_time(), x);
 		x ++;
 	}
 	return (0);
