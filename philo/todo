@@ -44,3 +44,5 @@ philo cant start eating with 0 ms to live
 if philo has eaten # of time, does he keep eating ? YES
 use pt_detach to "free" everything
 we have to check before eating and sleeping if the t2e or the t2s is going to put us over the death time by more than the 10 ms before we do the wait
+
+Fail with 1 philo

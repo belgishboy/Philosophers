@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 15:00:47 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/18 19:58:41 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/03/16 18:14:26 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	create_guest_list(int nphilo, t_table *t)
 	t_philo			*guest_list;
 	int				x;
 
-	//printf("create_guest_list\n");
 	guest_list = malloc(nphilo * sizeof(t_philo));
 	guest_num = malloc(nphilo * sizeof(pthread_t));
 	frk_ls = malloc(nphilo * sizeof(pthread_mutex_t));
@@ -57,9 +56,7 @@ int	create_guest_list(int nphilo, t_table *t)
 		invite_guest(t, &guest_list[x]);
 		x ++;
 	}
-	//printf("done guests\n");
 	pthread_mutex_init(&t->prt, NULL);
-	//printf("testing\n");
 	t->d_e = 0;
 	t->a_p = guest_list;
 	t->a_t = guest_num;

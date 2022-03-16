@@ -6,24 +6,103 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 13:04:39 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/28 13:18:16 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/03/16 18:26:57 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
 /*
 **Contains all the actions the philopher can take
 */
 
-int	death(t_philo *p)
+int	ph_eat(t_philo *p)
 {
-	if (!p->al || get_time() - p->t_e >= p->t->t2d)
+	long long	c_t;
+
+	pthread_mutex_lock(&p->t->prt);
+	if (p->t->al == 0 || p->al == 0)
 	{
-		p->t->al = 0;
-		p->al = 0;
-		prt_status(p, p->t, 5, get_time());
-		return (0);
+		pthread_mutex_unlock(&p->t->prt);
+		return (1);
 	}
-	return (1);
+	c_t = get_time() - p->t->st;
+	printf("%lld %d is eating\n", c_t, p->p_n + 1);
+	p->t_e = get_time();
+	p->n_e ++;
+	if (p->n_e == p->t->stomach)
+		p->t->d_e ++;
+	pthread_mutex_unlock(&p->t->prt);
+	return (0);
+}
+
+int	ph_fork(t_philo *p)
+{
+	long long	c_t;
+
+	pthread_mutex_lock(&p->t->prt);
+	if (p->t->al == 0 || p->al == 0)
+	{
+		pthread_mutex_unlock(&p->t->prt);
+		return (1);
+	}
+	c_t = get_time() - p->t->st;
+	printf("%lld %d has taken a fork\n", c_t, p->p_n + 1);
+	pthread_mutex_unlock(&p->t->prt);
+	return (0);
+}
+
+int	ph_sleep(t_philo *p)
+{
+	long long	c_t;
+
+	pthread_mutex_lock(&p->t->prt);
+	if (p->t->al == 0 || p->al == 0)
+	{
+		pthread_mutex_unlock(&p->t->prt);
+		return (1);
+	}
+	c_t = get_time() - p->t->st;
+	printf("%lld %d is sleeping\n", c_t, p->p_n + 1);
+	pthread_mutex_unlock(&p->t->prt);
+	return (0);
+}
+
+int	ph_think(t_philo *p)
+{
+	long long	c_t;
+
+	pthread_mutex_lock(&p->t->prt);
+	if (p->t->al == 0 || p->al == 0)
+	{
+		pthread_mutex_unlock(&p->t->prt);
+		return (1);
+	}
+	c_t = get_time() - p->t->st;
+	printf("%lld %d is thinking\n", c_t, p->p_n + 1);
+	pthread_mutex_unlock(&p->t->prt);
+	return (0);
+}
+
+void	ft_usleep(t_table *t, long long time_limit)
+{
+	long long	start;
+
+	start = get_time();
+	while (get_time() - start < time_limit / 1000)
+	{
+		if (t->nphilo < 100)
+			usleep(100);
+		else
+			usleep(1000);
+	}
+}
+
+void	ph_done(t_philo *p)
+{
+	long long	c_t;
+
+	pthread_mutex_lock(&p->t->prt);
+	c_t = get_time() - p->t->st;
+	printf("%lld %d is DONE\n", c_t, p->p_n + 1);
+	pthread_mutex_unlock(&p->t->prt);
 }
