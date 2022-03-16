@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 15:00:47 by vheymans          #+#    #+#             */
-/*   Updated: 2022/03/16 18:14:26 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/03/16 20:55:28 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@
 
 int	invite_guest(t_table *t, t_philo *p)
 {
-	//printf("invite_guest\n");
 	p->p_n = -1;
 	p->n_e = 0;
 	p->al = 1;
-	p->t = t; //pointer??
+	p->t = t;
 	return (0);
 }
 
@@ -70,7 +69,6 @@ int	create_guest_list(int nphilo, t_table *t)
 
 int	get_dishes(int argc, char **argv, t_table *t)// Need to use int_check.c to do some in checking
 {
-	//printf("get_dishes\n");
 	if (ft_argvdigitcheck(argv) || ft_argvemptycheck(argv))
 		return (printf("Incorrect imputs\n"));
 	t->nphilo = ft_atoi(argv[1]);
@@ -101,9 +99,8 @@ int	get_dishes(int argc, char **argv, t_table *t)// Need to use int_check.c to d
 **Set Table initializes the table and all its values
 */
 
-int	set_table(int argc, char **argv, t_table *t)// need a freeing
+int	set_table(int argc, char **argv, t_table *t)
 {
-	//printf("set_table\n");
 	if (get_dishes(argc, argv, t))
 		return (1);
 	if (create_guest_list(t->nphilo, t))

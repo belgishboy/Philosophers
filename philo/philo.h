@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 19:34:49 by vheymans          #+#    #+#             */
-/*   Updated: 2022/03/16 18:27:42 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/03/16 20:55:49 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_philo
 	int			n_e;
 	int			al;
 	long long	t_e;
-	t_table		*t; // pointer??
+	t_table		*t;
 }	t_philo;
 
 /*
@@ -84,8 +84,6 @@ int			ph_fork(t_philo *p);
 int			ph_sleep(t_philo *p);
 int			ph_think(t_philo *p);
 void		ft_usleep(t_table *t, long long time_limit);
-
-void	ph_done(t_philo *p);//DELETE
 
 int			ft_atoi(const char *nptr);
 long long	get_time(void);

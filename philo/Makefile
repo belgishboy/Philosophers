@@ -12,7 +12,7 @@ SRC =	main.c				\
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra -fsanitize=thread
+FLAGS = -Wall -Werror -Wextra -g -fsanitize=thread
 
 OBJ = $(SRC:.c=.o)
 

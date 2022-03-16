@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 14:56:01 by vheymans          #+#    #+#             */
-/*   Updated: 2022/03/16 19:47:04 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/03/16 20:53:37 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	check(t_table *t)
 			{
 				t->al = 0;
 				printf("%lld %d is dead\n", get_time() - t->st, x + 1);
+				pthread_mutex_unlock(&t->prt);
+				return (0);
 			}
 			x ++;
 		}

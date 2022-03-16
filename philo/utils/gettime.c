@@ -6,16 +6,11 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 11:45:28 by vheymans          #+#    #+#             */
-/*   Updated: 2021/12/18 20:01:42 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/03/16 20:06:03 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
-/*int	t_fstart(int s_time)
-{
-	
-}*/
 
 long long	get_time(void)
 {

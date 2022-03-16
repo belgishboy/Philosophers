@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 13:04:39 by vheymans          #+#    #+#             */
-/*   Updated: 2022/03/16 18:26:57 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/03/16 20:50:33 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	ph_eat(t_philo *p)
 	if (p->n_e == p->t->stomach)
 		p->t->d_e ++;
 	pthread_mutex_unlock(&p->t->prt);
+	ft_usleep(p->t, p->t->t2e);
 	return (0);
 }
 
@@ -64,6 +65,8 @@ int	ph_sleep(t_philo *p)
 	c_t = get_time() - p->t->st;
 	printf("%lld %d is sleeping\n", c_t, p->p_n + 1);
 	pthread_mutex_unlock(&p->t->prt);
+	ft_usleep(p->t, p->t->t2s);
+	ph_think(p);
 	return (0);
 }
 
@@ -95,14 +98,4 @@ void	ft_usleep(t_table *t, long long time_limit)
 		else
 			usleep(1000);
 	}
-}
-
-void	ph_done(t_philo *p)
-{
-	long long	c_t;
-
-	pthread_mutex_lock(&p->t->prt);
-	c_t = get_time() - p->t->st;
-	printf("%lld %d is DONE\n", c_t, p->p_n + 1);
-	pthread_mutex_unlock(&p->t->prt);
 }
