@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 14:56:01 by vheymans          #+#    #+#             */
-/*   Updated: 2022/03/16 19:28:20 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/03/16 19:47:04 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	check(t_table *t)
 
 	while (t->al)
 	{
-		//printf("checking\n");
 		pthread_mutex_lock(&t->prt);
 		x = 0;
 		while (x < t->nphilo)
@@ -52,20 +51,14 @@ int	check(t_table *t)
 			p = &t->a_p[x];
 			if (get_time() - p->t_e >= t->t2d)
 			{
-				printf("%d is out of time\n", x + 1);
 				t->al = 0;
-				p->al = 0;
 				printf("%lld %d is dead\n", get_time() - t->st, x + 1);
 			}
 			x ++;
 		}
 		if (t->d_e >= t->nphilo)
-		{
 			t->al = 0;
-			printf("\n\ndone eating\n\n");
-		}
 		pthread_mutex_unlock(&t->prt);
-		//ft_usleep(t, 100);
 	}
 	return (0);
 }
@@ -82,19 +75,11 @@ int	main(int argc, char **argv)
 	meal(&t);
 	x = 0;
 	while (x < t.nphilo)
-	{
-		printf("Philo %d had eaten %d times\n", x + 1, t.a_p[x].n_e);
-		pthread_join(t.a_t[x], NULL); // join kills 
-		printf("%lld Philo %d has been joined \n", get_time() - t.st, x + 1);
-		x ++;
-	}
+		pthread_join(t.a_t[x ++], NULL);
 	x = 0;
 	pthread_mutex_destroy(&t.prt);
 	while (x < t.nphilo)
-	{
-		pthread_mutex_destroy(&t.f[x]);
-		x ++;
-	}
+		pthread_mutex_destroy(&t.f[x ++]);
 	free(t.a_p);
 	free(t.a_t);
 	free(t.f);
