@@ -6,11 +6,32 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 14:56:01 by vheymans          #+#    #+#             */
-/*   Updated: 2022/03/16 20:53:37 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/03/18 15:13:41 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	error_exit(t_table *t)
+{
+	int	i;
+
+	i = 0;
+	while (i < t->nphilo)
+	{
+		pthread_join(t->a_t[i], NULL);
+		i ++;
+	}
+	i = 0;
+	pthread_mutex_destroy(&t->prt);
+	while (i < t->nphilo)
+		pthread_mutex_destroy(&t->f[i ++]);
+	free(t->a_p);
+	free(t->a_t);
+	free(t->f);
+	printf("Thread Error\n");
+	return (1);
+}
 
 int	meal(t_table *t)
 {
@@ -27,7 +48,7 @@ int	meal(t_table *t)
 			t->a_p[x].t_e = t->st;
 			t->a_p[x].p_n = x;
 			if (pthread_create(&t->a_t[x], NULL, &routine, &t->a_p[x]))
-				return (printf("Thread Error\n"));
+				return (error_exit(t));
 			x += 2;
 		}
 		x = 1;
@@ -74,7 +95,8 @@ int	main(int argc, char **argv)
 		return (printf("Number of arguments is incorrect\nError\n"));
 	if (set_table(argc, argv, &t))
 		return (printf("Error set table\n"));
-	meal(&t);
+	if (meal(&t))
+		return (1);
 	x = 0;
 	while (x < t.nphilo)
 		pthread_join(t.a_t[x ++], NULL);

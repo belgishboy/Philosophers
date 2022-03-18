@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 15:00:47 by vheymans          #+#    #+#             */
-/*   Updated: 2022/03/16 20:55:28 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/03/18 15:14:24 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	create_guest_list(int nphilo, t_table *t)
 	guest_num = malloc(nphilo * sizeof(pthread_t));
 	frk_ls = malloc(nphilo * sizeof(pthread_mutex_t));
 	if (!frk_ls || !guest_list || !guest_num)
-		return (1); // NEED TO FREE
+		return (1);
 	x = 0;
 	while (x < nphilo)
 	{
@@ -67,7 +67,7 @@ int	create_guest_list(int nphilo, t_table *t)
 **get_dishes does input checking
 */
 
-int	get_dishes(int argc, char **argv, t_table *t)// Need to use int_check.c to do some in checking
+int	get_dishes(int argc, char **argv, t_table *t)
 {
 	if (ft_argvdigitcheck(argv) || ft_argvemptycheck(argv))
 		return (printf("Incorrect imputs\n"));
